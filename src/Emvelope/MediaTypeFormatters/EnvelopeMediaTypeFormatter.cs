@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -72,39 +74,66 @@ namespace Emvelope.MediaTypeFormatters
 
         public bool ShouldEnvelope(Type type)
         {
-            if (type.IsArray)
-            {
-                var elementType = type.GetElementType();
-
-                if (elementType == typeof(string))
-                {
-                    return false;
-                }
-
-                return !elementType.IsValueType;
-            }
-
-            if (type == typeof(string))
-            {
-                return false;
-            }
-
-            if (type.IsValueType)
-            {
-                return false;
-            }
-
-            if (IsAnonymousType(type))
-            {
-                return false;
-            }
-
             if (type == typeof(object))
             {
                 return false;
             }
 
+            if (type == typeof(IEnumerable))
+            {
+                return false;
+            }
+
+            var innerType = GetInnerType(type);
+
+            if (innerType == typeof(string))
+            {
+                return false;
+            }
+
+            if (innerType == typeof(DateTime))
+            {
+                return false;
+            }
+
+            if (innerType == typeof(decimal))
+            {
+                return false;
+            }
+
+            if (innerType.IsPrimitive)
+            {
+                return false;
+            }
+
+            if (IsAnonymousType(innerType))
+            {
+                return false;
+            }
+
             return true;
+        }
+
+        private Type GetInnerType(Type type)
+        {
+            if (type.IsArray)
+            {
+                return type.GetElementType();
+            }
+
+            var underlying = Nullable.GetUnderlyingType(type);
+            if (underlying != null)
+            {
+                return underlying;
+            }
+
+            if (type.IsGenericType
+                && typeof(IEnumerable<>).IsAssignableFrom(type.GetGenericTypeDefinition()))
+            {
+                return type.GetGenericArguments()[0];
+            }
+
+            return type;
         }
 
         private static bool IsAnonymousType(Type type)

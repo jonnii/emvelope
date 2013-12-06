@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Formatting;
@@ -13,29 +15,56 @@ namespace Emvelope.Specs.MediaTypeFormatters
         [Subject(typeof(EnvelopeMediaTypeFormatter))]
         public class in_general : WithSubject<EnvelopeMediaTypeFormatter>
         {
-            It should_read_reference_types_wrapped = () =>
+            It should_envelope_reference_types = () =>
                 Subject.ShouldEnvelope(typeof(Model)).ShouldBeTrue();
 
-            It should_read_reference_type_arrays_wrapped = () =>
+            It should_envelope_reference_type_arrays = () =>
                 Subject.ShouldEnvelope(typeof(Model[])).ShouldBeTrue();
 
-            It should_not_read_string_arrays_wrapped = () =>
+            It should_envelope_reference_type_enumerables = () =>
+                Subject.ShouldEnvelope(typeof(IEnumerable<Model>)).ShouldBeTrue();
+
+            It should_envelope_structs = () =>
+                Subject.ShouldEnvelope(typeof(AnnoyingStruct)).ShouldBeTrue();
+
+            It should_envelope_struct_arrays = () =>
+                Subject.ShouldEnvelope(typeof(AnnoyingStruct[])).ShouldBeTrue();
+
+            It should_not_envelope_string_arrays = () =>
                 Subject.ShouldEnvelope(typeof(string[])).ShouldBeFalse();
 
-            It should_not_read_string_wrapped = () =>
+            It should_not_envelope_strings = () =>
                 Subject.ShouldEnvelope(typeof(string)).ShouldBeFalse();
 
-            It should_not_read_int_wrapped = () =>
+            It should_not_envelope_ints = () =>
                 Subject.ShouldEnvelope(typeof(int)).ShouldBeFalse();
 
-            It should_not_read_value_type_arrays_wrapped = () =>
+            It should_not_envelope_date_time_arrays = () =>
                 Subject.ShouldEnvelope(typeof(DateTime[])).ShouldBeFalse();
 
-            It should_not_read_anonymous_type_wrapped = () =>
+            It should_not_envelope_date_times = () =>
+                Subject.ShouldEnvelope(typeof(DateTime)).ShouldBeFalse();
+
+            It should_not_envelope_decimals = () =>
+                Subject.ShouldEnvelope(typeof(decimal)).ShouldBeFalse();
+
+            It should_not_envelope_decimal_arrays = () =>
+                Subject.ShouldEnvelope(typeof(decimal[])).ShouldBeFalse();
+
+            It should_not_envelope_anonymous_types = () =>
                 Subject.ShouldEnvelope(new { foo = "zomg" }.GetType()).ShouldBeFalse();
 
-            It should_not_read_object_wrapped = () =>
+            It should_not_envelope_object = () =>
                 Subject.ShouldEnvelope(typeof(object)).ShouldBeFalse();
+
+            It should_not_envelope_primitive_enumerables = () =>
+                Subject.ShouldEnvelope(typeof(IEnumerable<int>)).ShouldBeFalse();
+
+            It should_not_envelope_nullable_types = () =>
+                Subject.ShouldEnvelope(typeof(int?)).ShouldBeFalse();
+
+            It should_not_envelope_enumerables = () =>
+                Subject.ShouldEnvelope(typeof(IEnumerable)).ShouldBeFalse();
         }
 
         [Subject(typeof(EnvelopeMediaTypeFormatter))]
@@ -78,6 +107,11 @@ namespace Emvelope.Specs.MediaTypeFormatters
         }
 
         public class Model
+        {
+            public string Name { get; set; }
+        }
+
+        public struct AnnoyingStruct
         {
             public string Name { get; set; }
         }
