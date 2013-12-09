@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Emvelope</id>
+        <version>0.0.0.1</version>
+        <title>Emvelope</title>
+        <authors>Jonathan Goldman</authors>
+        <owners>Jonathan Goldman</owners>
+        <summary>A media type formatter for enveloped responses</summary>
+        <description>A media type formatter for enveloped responses.</description>
+        <language>en-US</language>
+        <projectUrl>http://github.com/jonnii/emvelope</projectUrl>
+        <licenseUrl>https://github.com/jonnii/emvelope/blob/master/LICENSE.txt</licenseUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <tags>http rest ember ember-data emberdata envelope</tags>
+    </metadata>
+</package>
