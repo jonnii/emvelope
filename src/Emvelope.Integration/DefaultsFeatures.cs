@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Owin.Hosting;
@@ -47,6 +48,23 @@ namespace Emvelope.Integration
             var obj = JObject.Parse(contents);
 
             Assert.That(obj["Id"].Value<int>(), Is.EqualTo(3));
+        }
+
+        [Test]
+        public async Task ShouldGetMetaDataForEndPointsThatHaveMetaDataProvider()
+        {
+            var client = new HttpClient();
+            var result = await client.GetAsync("http://localhost:44543/api/products");
+            var contents = await result.Content.ReadAsStringAsync();
+
+            var obj = JObject.Parse(contents);
+
+            Assert.That(obj["products"], Is.Not.Null);
+            Assert.That(obj["products"].Children().Count(), Is.EqualTo(3));
+
+            Assert.That(obj["meta"]["page"].Value<int>(), Is.EqualTo(3));
+            Assert.That(obj["meta"]["items_per_page"].Value<int>(), Is.EqualTo(20));
+            Assert.That(obj["meta"]["total_pages"].Value<int>(), Is.EqualTo(150));
         }
     }
 }

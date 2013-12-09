@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="Converters\EnvelopeJsonConverter.cs" />
     <Compile Include="EmvelopeMediaTypeFormatter.cs" />
+    <Compile Include="IMetaProvider.cs" />
     <Compile Include="MediaTypeFormatters\EnvelopeRead.cs" />
     <Compile Include="MediaTypeFormatters\EnvelopeWrite.cs" />
     <Compile Include="MediaTypeFormatters\IEnvelope.cs" />

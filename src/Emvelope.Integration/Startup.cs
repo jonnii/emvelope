@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using Emvelope.Integration.Models;
 using Owin;
 
 namespace Emvelope.Integration
@@ -9,7 +10,12 @@ namespace Emvelope.Integration
         {
             var config = new HttpConfiguration();
 
-            config.Formatters.Insert(0, new EmvelopeMediaTypeFormatter());
+            var formatter = new EmvelopeMediaTypeFormatter();
+            formatter.AddMetaProvider(new PagingMetaProvider());
+
+            config.Formatters.Insert(0, formatter);
+
+
             config.Routes.MapHttpRoute(
                 "DefaultApi",
                 "api/{controller}/{id}",

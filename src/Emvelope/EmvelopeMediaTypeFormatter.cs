@@ -39,5 +39,10 @@ namespace Emvelope
 
             return envelopeMediaTypeFormatter;
         }
+
+        public void AddMetaProvider(IMetaProvider provider)
+        {
+            envelopeMediaTypeFormatter.AddMetaProvider(provider);
+        }
     }
 }

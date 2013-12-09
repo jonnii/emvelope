@@ -23,15 +23,25 @@ namespace Emvelope.MediaTypeFormatters
         private readonly ConcurrentDictionary<Type, bool> shouldEnvelopeCache =
             new ConcurrentDictionary<Type, bool>();
 
+        private readonly EnvelopeJsonConverter envelopeConverter;
+
         public EnvelopeMediaTypeFormatter()
         {
+            envelopeConverter = new EnvelopeJsonConverter();
+
             SerializerSettings.ContractResolver = new SnakeCasePropertyNamesContractResolver();
             SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
             SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
 
             SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
-            SerializerSettings.Converters.Add(new EnvelopeJsonConverter());
             SerializerSettings.Converters.Add(new WhiteSpaceTrimStringConverter());
+
+            SerializerSettings.Converters.Add(envelopeConverter);
+        }
+
+        public void AddMetaProvider(IMetaProvider provider)
+        {
+            envelopeConverter.AddMetaProvider(provider);
         }
 
         public override Task WriteToStreamAsync(

@@ -15,6 +15,13 @@ namespace Emvelope.Converters
         private readonly ConcurrentDictionary<Type, string> envelopePropertyNameCache =
             new ConcurrentDictionary<Type, string>();
 
+        private readonly List<IMetaProvider> metaProviders = new List<IMetaProvider>();
+
+        public void AddMetaProvider(IMetaProvider provider)
+        {
+            metaProviders.Add(provider);
+        }
+
         public override bool CanConvert(Type objectType)
         {
             return typeof(IEnvelope).IsAssignableFrom(objectType);
@@ -64,8 +71,6 @@ namespace Emvelope.Converters
 
         private object FormatEnvelope(object content)
         {
-            //var paged = content as IPaged;
-
             var envelopePropertyName = envelopePropertyNameCache.GetOrAdd(
                 content.GetType(),
                 GetEnvelopePropertyName);
@@ -75,15 +80,12 @@ namespace Emvelope.Converters
                 { envelopePropertyName, content } 
             };
 
-            //if (paged != null)
-            //{
-            //    dict.Add("Meta", new
-            //    {
-            //        paged.Page,
-            //        paged.ItemsPerPage,
-            //        paged.TotalPages
-            //    });
-            //}
+            var metaProvider = metaProviders.FirstOrDefault(m => m.Wants(content));
+
+            if (metaProvider != null)
+            {
+                dict.Add("Meta", metaProvider.GetMeta(content));
+            }
 
             return dict;
         }
