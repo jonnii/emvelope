@@ -36,6 +36,8 @@ namespace Emvelope.Integration
 
             Assert.That(obj["product"], Is.Not.Null);
             Assert.That(obj["product"]["id"].Value<int>(), Is.EqualTo(3));
+
+            Assert.That(result.Content.Headers.ContentType.MediaType, Is.EqualTo("application/json"));
         }
 
         [Test]

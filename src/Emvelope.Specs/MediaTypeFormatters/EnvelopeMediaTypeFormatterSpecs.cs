@@ -12,8 +12,8 @@ namespace Emvelope.Specs.MediaTypeFormatters
 {
     public class EnvelopeMediaTypeFormatterSpecs
     {
-        [Subject(typeof(EnvelopeMediaTypeFormatter))]
-        public class in_general : WithSubject<EnvelopeMediaTypeFormatter>
+        [Subject(typeof(EnvelopeJsonMediaTypeFormatter))]
+        public class in_general : WithSubject<EnvelopeJsonMediaTypeFormatter>
         {
             It should_envelope_reference_types = () =>
                 Subject.ShouldEnvelope(typeof(Model)).ShouldBeTrue();
@@ -67,8 +67,8 @@ namespace Emvelope.Specs.MediaTypeFormatters
                 Subject.ShouldEnvelope(typeof(IEnumerable)).ShouldBeFalse();
         }
 
-        [Subject(typeof(EnvelopeMediaTypeFormatter))]
-        public class when_serializing : WithSubject<EnvelopeMediaTypeFormatter>
+        [Subject(typeof(EnvelopeJsonMediaTypeFormatter))]
+        public class when_serializing : WithSubject<EnvelopeJsonMediaTypeFormatter>
         {
             Because of = () =>
                 serialized = Serialize(Subject, new Model { Name = "Fribble" });
@@ -79,8 +79,8 @@ namespace Emvelope.Specs.MediaTypeFormatters
             static string serialized;
         }
 
-        [Subject(typeof(EnvelopeMediaTypeFormatter))]
-        public class when_serializing_anonymous_type : WithSubject<EnvelopeMediaTypeFormatter>
+        [Subject(typeof(EnvelopeJsonMediaTypeFormatter))]
+        public class when_serializing_anonymous_type : WithSubject<EnvelopeJsonMediaTypeFormatter>
         {
             Because of = () =>
                 serialized = Serialize(Subject, new { cake = new { Name = "Chocolate" } });
@@ -91,8 +91,8 @@ namespace Emvelope.Specs.MediaTypeFormatters
             static string serialized;
         }
 
-        [Subject(typeof(EnvelopeMediaTypeFormatter))]
-        public class when_round_tripping : WithSubject<EnvelopeMediaTypeFormatter>
+        [Subject(typeof(EnvelopeJsonMediaTypeFormatter))]
+        public class when_round_tripping : WithSubject<EnvelopeJsonMediaTypeFormatter>
         {
             Because of = () =>
             {

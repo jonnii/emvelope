@@ -63,7 +63,7 @@
     <Compile Include="MediaTypeFormatters\EnvelopeRead.cs" />
     <Compile Include="MediaTypeFormatters\EnvelopeWrite.cs" />
     <Compile Include="MediaTypeFormatters\IEnvelope.cs" />
-    <Compile Include="MediaTypeFormatters\EnvelopeMediaTypeFormatter.cs" />
+    <Compile Include="MediaTypeFormatters\EnvelopeJsonMediaTypeFormatter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Converters\SnakeCasePropertyNamesContractResolver.cs" />
     <Compile Include="Converters\WhiteSpaceTrimStringConverter.cs" />

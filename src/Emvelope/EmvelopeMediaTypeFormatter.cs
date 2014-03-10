@@ -11,7 +11,7 @@ namespace Emvelope
     {
         private readonly JsonMediaTypeFormatter jsonMediaTypeFormatter;
 
-        private readonly EnvelopeMediaTypeFormatter envelopeMediaTypeFormatter;
+        private readonly EnvelopeJsonMediaTypeFormatter envelopeJsonMediaTypeFormatter;
 
         public EmvelopeMediaTypeFormatter()
             : this(new DefaultPluralizer())
@@ -21,7 +21,10 @@ namespace Emvelope
         public EmvelopeMediaTypeFormatter(IPluralizer pluralizer)
         {
             jsonMediaTypeFormatter = new JsonMediaTypeFormatter();
-            envelopeMediaTypeFormatter = new EnvelopeMediaTypeFormatter(pluralizer);
+            envelopeJsonMediaTypeFormatter = new EnvelopeJsonMediaTypeFormatter(pluralizer);
+
+            // we should probably take these from the registered inner media type formatters
+            SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/json"));
         }
 
         public override bool CanReadType(Type type)
@@ -42,12 +45,12 @@ namespace Emvelope
                 return jsonMediaTypeFormatter;
             }
 
-            return envelopeMediaTypeFormatter;
+            return envelopeJsonMediaTypeFormatter;
         }
 
         public void AddMetaProvider(IMetaProvider provider)
         {
-            envelopeMediaTypeFormatter.AddMetaProvider(provider);
+            envelopeJsonMediaTypeFormatter.AddMetaProvider(provider);
         }
     }
 }

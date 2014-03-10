@@ -15,7 +15,7 @@ using Newtonsoft.Json.Converters;
 
 namespace Emvelope.MediaTypeFormatters
 {
-    public class EnvelopeMediaTypeFormatter : JsonMediaTypeFormatter
+    public class EnvelopeJsonMediaTypeFormatter : JsonMediaTypeFormatter
     {
         private readonly ConcurrentDictionary<Type, Type> envelopeTypeCache =
             new ConcurrentDictionary<Type, Type>();
@@ -25,7 +25,7 @@ namespace Emvelope.MediaTypeFormatters
 
         private readonly EnvelopeJsonConverter envelopeConverter;
 
-        public EnvelopeMediaTypeFormatter(IPluralizer pluralizer)
+        public EnvelopeJsonMediaTypeFormatter(IPluralizer pluralizer)
         {
             envelopeConverter = new EnvelopeJsonConverter(pluralizer);
 
