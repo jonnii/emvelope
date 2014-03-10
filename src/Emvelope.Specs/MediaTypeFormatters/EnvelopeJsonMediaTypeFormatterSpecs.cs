@@ -10,7 +10,7 @@ using Machine.Specifications;
 
 namespace Emvelope.Specs.MediaTypeFormatters
 {
-    public class EnvelopeMediaTypeFormatterSpecs
+    public class EnvelopeJsonMediaTypeFormatterSpecs
     {
         [Subject(typeof(EnvelopeJsonMediaTypeFormatter))]
         public class in_general : WithSubject<EnvelopeJsonMediaTypeFormatter>

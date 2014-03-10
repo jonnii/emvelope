@@ -69,7 +69,7 @@
     </Compile>
     <Compile Include="Converters\EnvelopeJsonConverterSpecs.cs" />
     <Compile Include="DefaultPluralizerSpecs.cs" />
-    <Compile Include="MediaTypeFormatters\EnvelopeMediaTypeFormatterSpecs.cs" />
+    <Compile Include="MediaTypeFormatters\EnvelopeJsonMediaTypeFormatterSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
