@@ -68,6 +68,7 @@
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Converters\EnvelopeJsonConverterSpecs.cs" />
+    <Compile Include="DefaultPluralizerSpecs.cs" />
     <Compile Include="MediaTypeFormatters\EnvelopeMediaTypeFormatterSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
