@@ -66,5 +66,18 @@ namespace Emvelope.Integration
             Assert.That(obj["meta"]["items_per_page"].Value<int>(), Is.EqualTo(20));
             Assert.That(obj["meta"]["total_pages"].Value<int>(), Is.EqualTo(150));
         }
+
+        [Test]
+        public async Task ShouldPluralizeWrappedContent()
+        {
+            var client = new HttpClient();
+            var result = await client.GetAsync("http://localhost:44543/api/batteries");
+            var contents = await result.Content.ReadAsStringAsync();
+
+            var obj = JObject.Parse(contents);
+
+            Assert.That(obj["batteries"], Is.Not.Null);
+            Assert.That(obj["batteries"].Children().Count(), Is.EqualTo(2));
+        }
     }
 }

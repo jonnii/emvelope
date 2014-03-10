@@ -12,12 +12,20 @@ namespace Emvelope.Converters
 {
     public class EnvelopeJsonConverter : JsonConverter
     {
+        private readonly IPluralizer pluralizer;
+
         private readonly ConcurrentDictionary<Type, string> envelopePropertyNameCache =
             new ConcurrentDictionary<Type, string>();
 
         private readonly List<IMetaProvider> metaProviders = new List<IMetaProvider>();
 
-        public void AddMetaProvider(IMetaProvider provider)
+        public EnvelopeJsonConverter(IPluralizer pluralizer)
+        {
+            this.pluralizer = pluralizer;
+        }
+
+        public void AddMetaProvider(
+            IMetaProvider provider)
         {
             metaProviders.Add(provider);
         }
@@ -95,26 +103,22 @@ namespace Emvelope.Converters
             if (type.IsArray)
             {
                 var elementType = type.GetElementType();
-                return Pluralize(elementType.Name);
+                return pluralizer.Pluralize(elementType.Name);
             }
 
             if (typeof(IEnumerable).IsAssignableFrom(type))
             {
                 if (!type.GetGenericArguments().Any())
                 {
-                    return Pluralize(type.Name);
+                    return pluralizer.Pluralize(type.Name);
                 }
 
                 var arg = type.GetGenericArguments()[0];
-                return Pluralize(arg.Name);
+                return pluralizer.Pluralize(arg.Name);
             }
 
             return type.Name;
         }
 
-        private string Pluralize(string name)
-        {
-            return string.Concat(name, "s");
-        }
     }
 }

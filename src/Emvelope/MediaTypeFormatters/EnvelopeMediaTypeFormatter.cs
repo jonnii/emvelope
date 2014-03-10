@@ -25,9 +25,9 @@ namespace Emvelope.MediaTypeFormatters
 
         private readonly EnvelopeJsonConverter envelopeConverter;
 
-        public EnvelopeMediaTypeFormatter()
+        public EnvelopeMediaTypeFormatter(IPluralizer pluralizer)
         {
-            envelopeConverter = new EnvelopeJsonConverter();
+            envelopeConverter = new EnvelopeJsonConverter(pluralizer);
 
             SerializerSettings.ContractResolver = new SnakeCasePropertyNamesContractResolver();
             SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
