@@ -14,9 +14,14 @@ namespace Emvelope
         private readonly EnvelopeMediaTypeFormatter envelopeMediaTypeFormatter;
 
         public EmvelopeMediaTypeFormatter()
+            : this(new DefaultPluralizer())
+        {
+        }
+
+        public EmvelopeMediaTypeFormatter(IPluralizer pluralizer)
         {
             jsonMediaTypeFormatter = new JsonMediaTypeFormatter();
-            envelopeMediaTypeFormatter = new EnvelopeMediaTypeFormatter();
+            envelopeMediaTypeFormatter = new EnvelopeMediaTypeFormatter(pluralizer);
         }
 
         public override bool CanReadType(Type type)

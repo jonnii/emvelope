@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using Emvelope.Integration.Models;
 using Owin;
 
 namespace Emvelope.Integration

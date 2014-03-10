@@ -70,6 +70,8 @@
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Controllers\BatteriesController.cs" />
+    <Compile Include="Models\Battery.cs" />
     <Compile Include="Models\IPagedEnumerable.cs" />
     <Compile Include="Models\PagedEnumerable.cs" />
     <Compile Include="PagingMetaProvider.cs" />
