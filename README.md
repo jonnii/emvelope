@@ -13,3 +13,7 @@ Just insert the `EmvelopeMediaTypeFormatter` into your list of formatters (make 
 ```
 config.Formatters.Insert(0, new EmvelopeMediaTypeFormatter());
 ```
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/jonnii/emvelope/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
