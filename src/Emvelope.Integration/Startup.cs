@@ -14,7 +14,6 @@ namespace Emvelope.Integration
 
             config.Formatters.Insert(0, formatter);
 
-
             config.Routes.MapHttpRoute(
                 "DefaultApi",
                 "api/{controller}/{id}",
