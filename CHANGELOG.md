@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.0.5.0
+
+ * Bump dependent package versions
+
 ## 0.0.4.0
 
  * Correct content type handling

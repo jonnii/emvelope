@@ -14,7 +14,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <tags>http rest ember ember-data emberdata envelope</tags>
     <dependencies>
-      <dependency id="Microsoft.AspNet.WebApi.Core" version="5.0"/>
+      <dependency id="Microsoft.AspNet.WebApi.Core" version="5.2"/>
     </dependencies>
   </metadata>
 </package>
