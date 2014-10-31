@@ -23,5 +23,14 @@ namespace Emvelope.Integration.Controllers
 
             return results;
         }
+
+        public Battery Post([FromBody]NewBatteryModel battery)
+        {
+            return new Battery
+            {
+                Id = 4,
+                Name = battery.Name
+            };
+        }
     }
 }

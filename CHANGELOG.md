@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.0.6.0
+
+ * Ability to override the envelope name for a type, e.g. a post model
+
 ## 0.0.5.0
 
  * Bump dependent package versions

@@ -103,7 +103,7 @@ namespace Emvelope.Converters
             if (type.IsArray)
             {
                 var elementType = type.GetElementType();
-                return pluralizer.Pluralize(elementType.Name);
+                return pluralizer.Pluralize(GetEnvelopeTypeName(elementType));
             }
 
             if (typeof(IEnumerable).IsAssignableFrom(type))
@@ -114,11 +114,21 @@ namespace Emvelope.Converters
                 }
 
                 var arg = type.GetGenericArguments()[0];
-                return pluralizer.Pluralize(arg.Name);
+                return pluralizer.Pluralize(GetEnvelopeTypeName(arg));
             }
 
-            return type.Name;
+            return GetEnvelopeTypeName(type);
         }
 
+        private string GetEnvelopeTypeName(Type type)
+        {
+            var attr = type.GetCustomAttributes(typeof(EnvelopeAttribute), true)
+                .Cast<EnvelopeAttribute>()
+                .FirstOrDefault();
+
+            return attr != null
+                ? attr.Name
+                : type.Name;
+        }
     }
 }

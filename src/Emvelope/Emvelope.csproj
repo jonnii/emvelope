@@ -58,6 +58,7 @@
     </Compile>
     <Compile Include="Converters\EnvelopeJsonConverter.cs" />
     <Compile Include="DefaultPluralizer.cs" />
+    <Compile Include="EnvelopeAttribute.cs" />
     <Compile Include="IPluralizer.cs" />
     <Compile Include="EmvelopeMediaTypeFormatter.cs" />
     <Compile Include="IMetaProvider.cs" />

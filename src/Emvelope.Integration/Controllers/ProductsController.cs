@@ -46,5 +46,10 @@ namespace Emvelope.Integration.Controllers
                 InventoryCode = "CF-2343-YUM"
             };
         }
+
+        public Product Post(Product product)
+        {
+            return product;
+        }
     }
 }
