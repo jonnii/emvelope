@@ -1,8 +1,11 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
+using System.Threading;
+using System.Threading.Tasks;
 using Emvelope.MediaTypeFormatters;
 
 namespace Emvelope
@@ -37,9 +40,19 @@ namespace Emvelope
             return true;
         }
 
+        public override Task<object> ReadFromStreamAsync(Type type,
+            Stream readStream,
+            HttpContent content,
+            IFormatterLogger formatterLogger,
+            CancellationToken cancellationToken)
+        {
+            return envelopeJsonMediaTypeFormatter.ReadFromStreamAsync(type, readStream, content, formatterLogger, cancellationToken);
+        }
+
         public override MediaTypeFormatter GetPerRequestFormatterInstance(Type type, HttpRequestMessage request, MediaTypeHeaderValue mediaType)
         {
             var pairs = request.GetQueryNameValuePairs();
+
             if (pairs.Any(p => p.Key == "envelope" && p.Value == "false"))
             {
                 return jsonMediaTypeFormatter;

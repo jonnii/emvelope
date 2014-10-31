@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Threading.Tasks;
 using Microsoft.Owin.Hosting;
 using Newtonsoft.Json.Linq;
@@ -80,6 +81,34 @@ namespace Emvelope.Integration
 
             Assert.That(obj["batteries"], Is.Not.Null);
             Assert.That(obj["batteries"].Children().Count(), Is.EqualTo(2));
+        }
+
+        [Test]
+        public async Task ShouldUnwrapEnvelopedPostModels()
+        {
+            var client = new HttpClient();
+
+            var result = await client.PostAsync("http://localhost:44543/api/products", new { product = new { name = "amazing-thing" } }, new JsonMediaTypeFormatter(), "application/json");
+            var contents = await result.Content.ReadAsStringAsync();
+
+            var obj = JObject.Parse(contents);
+
+            Assert.That(obj["product"], Is.Not.Null);
+            Assert.That(obj["product"]["name"].Value<string>(), Is.EqualTo("amazing-thing"));
+        }
+
+        [Test]
+        public async Task ShouldAllowCustomizationOfEnvelopeName()
+        {
+            var client = new HttpClient();
+
+            var result = await client.PostAsync("http://localhost:44543/api/batteries", new { battery = new { name = "super-volt" } }, new JsonMediaTypeFormatter(), "application/json");
+            var contents = await result.Content.ReadAsStringAsync();
+
+            var obj = JObject.Parse(contents);
+
+            Assert.That(obj["battery"], Is.Not.Null);
+            Assert.That(obj["battery"]["name"].Value<string>(), Is.EqualTo("super-volt"));
         }
     }
 }
