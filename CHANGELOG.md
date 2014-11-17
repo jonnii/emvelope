@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.0.7.0
+
+ * When converting to objects from enveloped format the envelope can be snake or camel case
+
 ## 0.0.6.0
 
  * Ability to override the envelope name for a type, e.g. a post model
