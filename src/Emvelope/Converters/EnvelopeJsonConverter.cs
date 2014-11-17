@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using Emvelope.MediaTypeFormatters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 
 namespace Emvelope.Converters
 {
@@ -47,10 +48,11 @@ namespace Emvelope.Converters
                 innerEnvelopeType,
                 GetEnvelopePropertyName);
 
-            var rootElementName = SnakeCase(envelopePropertyName);
+            var snakeCasePropertyName = SnakeCase(envelopePropertyName);
+            var camelCasePropertyName = CamelCase(envelopePropertyName);
 
             var json = JObject.Load(reader);
-            var inner = json[rootElementName];
+            var inner = json[snakeCasePropertyName] ?? json[camelCasePropertyName];
 
             if (inner == null)
             {
@@ -66,6 +68,11 @@ namespace Emvelope.Converters
         private string SnakeCase(string name)
         {
             return Regex.Replace(name, "([a-z])([A-Z])", "$1_$2").ToLower();
+        }
+
+        private string CamelCase(string name)
+        {
+            return char.ToLowerInvariant(name[0]) + name.Substring(1);
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
